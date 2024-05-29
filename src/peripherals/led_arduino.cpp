@@ -17,8 +17,9 @@ limitations under the License.
 
 #include <cstdint>
 
-#include "led.h"
 #include "peripherals.h"
+#ifdef USE_LED
+#include "led.h"
 #include "utility.h"
 
 namespace peripherals {
@@ -100,3 +101,4 @@ class LED_Arduino : LED {
 LED& LED::Instance() { return LED_Arduino::Instance(); }
 
 }  // namespace peripherals
+#endif

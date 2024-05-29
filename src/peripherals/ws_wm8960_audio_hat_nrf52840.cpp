@@ -16,6 +16,7 @@ limitations under the License.
 #include "ws_wm8960_audio_hat_nrf52840.h"
 
 #include "i2c_arduino.h"
+#ifdef USE_I2C_ARDUINO
 #include "i2s_nrf52840.h"
 #include "wm8960.h"
 
@@ -35,3 +36,4 @@ WS_WM8960_AudioHat_NRF52840::WS_WM8960_AudioHat_NRF52840()
                   WM8960::Instance(I2C_Arduino::Instance0())) {}
 
 }  // namespace peripherals
+#endif

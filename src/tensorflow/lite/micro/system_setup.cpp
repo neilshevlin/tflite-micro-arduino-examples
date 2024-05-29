@@ -14,14 +14,15 @@ limitations under the License.
 ==============================================================================*/
 
 #include "tensorflow/lite/micro/system_setup.h"
-
+#include "tensorflow/lite/micro/system_ringbuffer.h"
 #include <limits>
 
 #include "tensorflow/lite/micro/debug_log.h"
 
-#if defined(ARDUINO) && !defined(ARDUINO_ARDUINO_NANO33BLE)
-#define ARDUINO_EXCLUDE_CODE
-#endif  // defined(ARDUINO) && !defined(ARDUINO_ARDUINO_NANO33BLE)
+//environments are defined so we can exlude. 
+// #if defined(ARDUINO) && !defined(ARDUINO_ARDUINO_NANO33BLE)
+// #define ARDUINO_EXCLUDE_CODE
+// #endif  // defined(ARDUINO) && !defined(ARDUINO_ARDUINO_NANO33BLE)
 
 #ifndef ARDUINO_EXCLUDE_CODE
 
@@ -42,8 +43,8 @@ namespace tflite {
 
 constexpr ulong kSerialMaxInitWait = 4000;  // milliseconds
 
-void InitializeTarget() {
-  DEBUG_SERIAL_OBJECT.begin(9600);
+void InitializeTarget(int baud) {
+  DEBUG_SERIAL_OBJECT.begin(baud);
   ulong start_time = millis();
   while (!DEBUG_SERIAL_OBJECT) {
     // allow for Arduino IDE Serial Monitor synchronization
@@ -69,7 +70,7 @@ void SerialChangeBaudRate(const int baud) {
   }
 }
 
-class _RingBuffer : public RingBufferN<kSerialMaxInputLength + 1> {
+class _RingBuffer : public tflite::RingBufferN<kSerialMaxInputLength + 1> {
  public:
   bool need_reset = false;
 };

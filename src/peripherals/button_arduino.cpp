@@ -19,6 +19,8 @@ limitations under the License.
 
 #include "button.h"
 #include "peripherals.h"
+#ifdef USE_BUTTON
+
 #include "utility.h"
 
 namespace peripherals {
@@ -128,3 +130,4 @@ class Button_Arduino : Button {
 Button& Button::Instance() { return Button_Arduino::Instance(); }
 
 }  // namespace peripherals
+#endif

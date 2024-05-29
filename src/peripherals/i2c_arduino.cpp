@@ -15,7 +15,7 @@ limitations under the License.
 
 #include "i2c_arduino.h"
 
-#include "peripherals.h"
+#ifdef USE_I2C_ARDUINO
 
 namespace peripherals {
 
@@ -70,3 +70,4 @@ uint16_t I2C_Arduino::Read(uint8_t address) {
 }
 
 }  // namespace peripherals
+#endif
